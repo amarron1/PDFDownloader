@@ -2,7 +2,7 @@
 //  PDFDownloaderUITests.swift
 //  PDFDownloaderUITests
 //
-//  Created by okuri on 2015/11/25.
+//  Created by amarron on 2015/11/25.
 //  Copyright © 2015年 amarron. All rights reserved.
 //
 
