@@ -14,8 +14,6 @@
 		172B96971C05AEB400508735 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 172B96951C05AEB400508735 /* LaunchScreen.storyboard */; };
 		172B96A21C05AEB400508735 /* PDFDownloaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172B96A11C05AEB400508735 /* PDFDownloaderTests.swift */; };
 		172B96AD1C05AEB400508735 /* PDFDownloaderUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172B96AC1C05AEB400508735 /* PDFDownloaderUITests.swift */; };
-		17BEE1BD1C06D5BD009ADB4F /* data.csv in Resources */ = {isa = PBXBuildFile; fileRef = 17BEE1BB1C06D5BD009ADB4F /* data.csv */; };
-		17BEE1BE1C06D5BD009ADB4F /* pdf-sample.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 17BEE1BC1C06D5BD009ADB4F /* pdf-sample.pdf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,8 +47,6 @@
 		172B96A81C05AEB400508735 /* PDFDownloaderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PDFDownloaderUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		172B96AC1C05AEB400508735 /* PDFDownloaderUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFDownloaderUITests.swift; sourceTree = "<group>"; };
 		172B96AE1C05AEB400508735 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		17BEE1BB1C06D5BD009ADB4F /* data.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = data.csv; sourceTree = "<group>"; };
-		17BEE1BC1C06D5BD009ADB4F /* pdf-sample.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "pdf-sample.pdf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,7 +103,6 @@
 				172B96931C05AEB300508735 /* Assets.xcassets */,
 				172B96951C05AEB400508735 /* LaunchScreen.storyboard */,
 				172B96981C05AEB400508735 /* Info.plist */,
-				17BEE1BA1C06D5BD009ADB4F /* tmp */,
 			);
 			path = PDFDownloader;
 			sourceTree = "<group>";
@@ -128,15 +123,6 @@
 				172B96AE1C05AEB400508735 /* Info.plist */,
 			);
 			path = PDFDownloaderUITests;
-			sourceTree = "<group>";
-		};
-		17BEE1BA1C06D5BD009ADB4F /* tmp */ = {
-			isa = PBXGroup;
-			children = (
-				17BEE1BB1C06D5BD009ADB4F /* data.csv */,
-				17BEE1BC1C06D5BD009ADB4F /* pdf-sample.pdf */,
-			);
-			path = tmp;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -243,9 +229,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				17BEE1BD1C06D5BD009ADB4F /* data.csv in Resources */,
 				172B96971C05AEB400508735 /* LaunchScreen.storyboard in Resources */,
-				17BEE1BE1C06D5BD009ADB4F /* pdf-sample.pdf in Resources */,
 				172B96941C05AEB300508735 /* Assets.xcassets in Resources */,
 				172B96921C05AEB300508735 /* Main.storyboard in Resources */,
 			);
