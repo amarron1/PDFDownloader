@@ -8,14 +8,14 @@
 
 import UIKit
 
-class ViewController: UIViewController, NSURLSessionDownloadDelegate, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
+class ViewController: UIViewController, URLSessionDownloadDelegate, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     
     @IBOutlet var urlTextField: UITextField!
     @IBOutlet var pdfTableView: UITableView!
     
     let dir = NSSearchPathForDirectoriesInDomains(
-        .DocumentDirectory,
-        .UserDomainMask, true)
+        .documentDirectory,
+        .userDomainMask, true)
     
     var dic:UIDocumentInteractionController?
     var files:NSMutableArray = NSMutableArray()
@@ -28,7 +28,7 @@ class ViewController: UIViewController, NSURLSessionDownloadDelegate, UITableVie
         self.urlTextField.delegate = self
         
         do {
-            self.files = try NSMutableArray(array: NSFileManager.defaultManager().contentsOfDirectoryAtPath(self.dir[0]))
+            self.files = try NSMutableArray(array: FileManager.default.contentsOfDirectory(atPath: self.dir[0]))
         } catch {
             print("error:\(error)")
         }
@@ -40,68 +40,68 @@ class ViewController: UIViewController, NSURLSessionDownloadDelegate, UITableVie
     }
     
     
-    @IBAction func download(sender: AnyObject) {
+    @IBAction func download(_ sender: AnyObject) {
         
-        if let url = NSURL(string: urlTextField!.text!) {
+        if let url = URL(string: urlTextField!.text!) {
             // Add files
-            self.files.addObject(url.lastPathComponent!)
+            self.files.add(url.lastPathComponent)
             
             // Download
-            let config = NSURLSessionConfiguration.defaultSessionConfiguration()
-            let session = NSURLSession(configuration: config,
+            let config = URLSessionConfiguration.default
+            let session = Foundation.URLSession(configuration: config,
                 delegate: self,
-                delegateQueue: NSOperationQueue.mainQueue())
-            let task = session.downloadTaskWithURL(url)
+                delegateQueue: OperationQueue.main)
+            let task = session.downloadTask(with: url)
             task.resume()
         } else {
             // Alert
-            let alert = UIAlertController(title: "Error", message: "url is invalid.", preferredStyle: .Alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-            self.presentViewController(alert, animated: true, completion: nil)
+            let alert = UIAlertController(title: "Error", message: "url is invalid.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
         }
     }
     
     // MARK: UITextFieldDelegate
-    func textFieldShouldReturn(textField: UITextField) -> Bool{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool{
         self.urlTextField.resignFirstResponder()
         return true
     }
     
     
     // MARK: UITableViewDataSourceDelegate
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
         cell.textLabel?.text = self.files[indexPath.row] as? String
         return cell
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.files.count
     }
     
     // MARK: - UITableViewDelegate
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if let path = NSURL(fileURLWithPath: self.dir[0]).URLByAppendingPathComponent(self.files[indexPath.row] as! String).path {
-            dic = UIDocumentInteractionController(URL: NSURL(fileURLWithPath: path))
-            dic?.presentOpenInMenuFromRect(CGRectZero, inView: self.view, animated: true)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let path = URL(fileURLWithPath: self.dir[0]).appendingPathComponent(self.files[indexPath.row] as! String).path  as String!{
+            dic = UIDocumentInteractionController(url: URL(fileURLWithPath: path))
+            dic?.presentOpenInMenu(from: CGRect.zero, in: self.view, animated: true)
         }
     }
     
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath){
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath){
         // Delete
-        if(editingStyle == UITableViewCellEditingStyle.Delete){
-            if let path = NSURL(fileURLWithPath: self.dir[0]).URLByAppendingPathComponent(self.files[indexPath.row] as! String).path {
+        if(editingStyle == UITableViewCellEditingStyle.delete){
+            if let path = URL(fileURLWithPath: self.dir[0]).appendingPathComponent(self.files[indexPath.row] as! String).path as String! {
                 do {
                     // Remove file
-                    try NSFileManager().removeItemAtPath(path)
-                    self.files.removeObjectAtIndex(indexPath.row)
+                    try FileManager().removeItem(atPath: path)
+                    self.files.removeObject(at: indexPath.row)
                     // Reload table
                     self.pdfTableView.reloadData()
                 } catch {
                     // Alert
-                    let alert = UIAlertController(title: "Failed", message: "\(error)", preferredStyle: .Alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-                    self.presentViewController(alert, animated: true, completion: nil)
+                    let alert = UIAlertController(title: "Failed", message: "\(error)", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
                 }
             }
         }
@@ -109,16 +109,16 @@ class ViewController: UIViewController, NSURLSessionDownloadDelegate, UITableVie
 
     
     // MARK: - NSURLSessionDownloadDelegate
-    func URLSession(session: NSURLSession, downloadTask: NSURLSessionDownloadTask, didFinishDownloadingToURL location: NSURL){
-        let data = NSData(contentsOfURL: location)!
-        if data.length > 0 {
+    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL){
+        let data = try! Data(contentsOf: location)
+        if data.count > 0 {
             let path =
-            NSURL(fileURLWithPath: self.dir[0]).URLByAppendingPathComponent(self.files[self.files.count-1] as! String).path
-            data.writeToFile(path!, atomically: true)
+            URL(fileURLWithPath: self.dir[0]).appendingPathComponent(self.files[self.files.count-1] as! String).path
+            try? data.write(to: URL(fileURLWithPath: path), options: [.atomic])
         }
     }
     
-    func URLSession(session: NSURLSession, task: NSURLSessionTask, didCompleteWithError error: NSError?) {
+    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
         var result = "Success"
         var message = ""
         if error == nil{
@@ -127,12 +127,12 @@ class ViewController: UIViewController, NSURLSessionDownloadDelegate, UITableVie
             session.invalidateAndCancel()
             self.files.removeLastObject()
             result = "Failed"
-            message = (error?.description)!
+            message = (error.debugDescription)
         }
         // Alert
-        let alert = UIAlertController(title: result, message: message, preferredStyle: .Alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-        self.presentViewController(alert, animated: true, completion: nil)
+        let alert = UIAlertController(title: result, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
         
         // Reload table
         self.pdfTableView.reloadData()

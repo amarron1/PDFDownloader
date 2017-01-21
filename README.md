@@ -6,7 +6,7 @@ Sample code for a PDF download and export.
 
 PDFDwonloader is the iOS app that can download and export of pdf.  
 Download the PDF from the any URL, you can export to the iBook and Evernote and the like.  
-Programming language is written in swift2.0.  
+Programming language is written in swift3.0.
 
 ## Usage
 
