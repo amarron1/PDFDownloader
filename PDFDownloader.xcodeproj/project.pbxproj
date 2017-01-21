@@ -193,7 +193,6 @@
 				TargetAttributes = {
 					172B96881C05AEB300508735 = {
 						CreatedOnToolsVersion = 7.1.1;
-						DevelopmentTeam = 4353SDRQQ4;
 						LastSwiftMigration = 0810;
 					};
 					172B969C1C05AEB400508735 = {
@@ -406,10 +405,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 4353SDRQQ4;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = PDFDownloader/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = jp.okuri.PDFDownloader;
+				PRODUCT_BUNDLE_IDENTIFIER = com.amarron.PDFDownloader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -419,10 +418,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 4353SDRQQ4;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = PDFDownloader/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = jp.okuri.PDFDownloader;
+				PRODUCT_BUNDLE_IDENTIFIER = com.amarron.PDFDownloader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
